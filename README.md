@@ -27,3 +27,36 @@ b、Bind启动:bindService  生命周期：oncreate()->onBind()->onUnBind()->onD
 　　比如，一个后台音乐service可能因调用 startService()方法而被开启了，稍后，可能用户想要控制播放器或者得到一些当前歌曲
    的信息，可以通过bindService()将一个activity和service绑定。这种情况下，stopService()或 stopSelf()实际上并不能停
    止这个service，除非所有的客户都解除绑定。
+   
+如何保证Service不被杀死：
+
+1、onStartCommand方法，返回START_STICKY。
+@Override  
+public int onStartCommand(Intent intent, int flags, int startId) {  
+    flags = START_STICKY;  
+    return super.onStartCommand(intent, flags, startId);  
+} 
+
+2、提升service进程优先级
+<service  
+    android:name="com.dbjtech.acbxt.waiqin.UploadService"  
+    android:enabled="true" >  
+    <intent-filter android:priority="1000" >  
+        <action android:name="com.dbjtech.myservice" />  
+    </intent-filter>  
+</service>  
+
+3、在onDestroy方法里重启service
+
+
+
+
+    
+
+
+
+
+
+
+
+

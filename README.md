@@ -1,9 +1,9 @@
 # Service
-安卓Service&amp;intentService使用
+安卓Service&amp;IntentService使用
 
 1、启动Service的2种方式：
 
-a、Activity直接启动:startService  生命周期：oncreate()->onStartCommand()->onDestory()
+a、Activity直接启动:startService  生命周期：onCreate()->onStartCommand()->onDestory()
 
     oncrate()方法只会运行一次，每次都调用onStartCommand（）。
     
@@ -11,7 +11,7 @@ a、Activity直接启动:startService  生命周期：oncreate()->onStartCommand
 
     当service被停止时，系统会销毁它。
 
-b、Bind启动:bindService  生命周期：oncreate()->onBind()->onUnBind()->onDestory()
+b、Bind启动:bindService  生命周期：onCreate()->onBind()->onUnBind()->onDestory()
 
     客户可以通过一个IBinder接口和service进行通信。
 
@@ -28,16 +28,18 @@ b、Bind启动:bindService  生命周期：oncreate()->onBind()->onUnBind()->onD
    的信息，可以通过bindService()将一个activity和service绑定。这种情况下，stopService()或 stopSelf()实际上并不能停
    止这个service，除非所有的客户都解除绑定。
    
-如何保证Service不被杀死：
+### 如何保证Service不被杀死：
 
 1、onStartCommand方法，返回START_STICKY。
+
 @Override  
 public int onStartCommand(Intent intent, int flags, int startId) {  
-    flags = START_STICKY;  
-    return super.onStartCommand(intent, flags, startId);  
+   flags = START_STICKY;  
+   return super.onStartCommand(intent, flags, startId);  
 } 
 
 2、提升service进程优先级
+
 <service  
     android:name="com.dbjtech.acbxt.waiqin.UploadService"  
     android:enabled="true" >  

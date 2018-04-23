@@ -28,7 +28,7 @@ public class MyIntentService extends IntentService {
     }
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
+    protected void onHandleIntent(@Nullable Intent intent) {//执行耗时操作
         if(intent != null){
             handleUploadImg();
         }

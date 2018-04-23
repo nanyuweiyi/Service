@@ -12,7 +12,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 /**
- * desc
+ * 普通Service
  *
  * @author tnn
  * @time 2017/12/4.

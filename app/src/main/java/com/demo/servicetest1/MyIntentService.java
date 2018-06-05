@@ -1,6 +1,9 @@
 package com.demo.servicetest1;
 
 import android.app.IntentService;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -53,7 +56,7 @@ public class MyIntentService extends IntentService {
                 if (count >= 100) {
                     isRunning = false;
                 }
-                Thread.sleep(500);
+                Thread.sleep(50);
                 sendThreadStatus("线程运行中...", count);
             }
             sendThreadStatus("线程结束", count);
@@ -71,8 +74,32 @@ public class MyIntentService extends IntentService {
     // 发送线程状态信息
     private void sendThreadStatus(String status, int progress) {
         Log.e("result---", status+"----progress:"+progress);
+        NotificationManager manager = showNotification(progress);
+//        if(progress == 100){
+//            manager.cancel(1);//参数为对应id
+//        }
     }
 
+    NotificationManager showNotification(int pro){
+        Notification.Builder builder = new Notification.Builder(getApplicationContext());
+        builder.setContentTitle("这是通知的标题");
+        if(pro == 100){
+            builder.setContentText("下载完成");
+        }else{
+            builder.setContentText("下载进度："+ pro + "%");
+        }
 
-
+        builder.setContentInfo("这是通知的补充内容");
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setTicker("新消息");
+        builder.setAutoCancel(true);
+        builder.setWhen(System.currentTimeMillis());
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        builder.setContentIntent(pendingIntent);
+        Notification notification = builder.build();
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1, notification);
+        return notificationManager;
+    }
 }

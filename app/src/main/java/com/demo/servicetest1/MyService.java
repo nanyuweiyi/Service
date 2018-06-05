@@ -64,8 +64,9 @@ public class MyService extends Service {
 
     //--------------------------------------------------
     Handler handler = new Handler();
-    class MyBinder extends Binder {
-        public void startDownload(){
+    class MyBinder extends Binder implements IMyBinder{
+        @Override
+        public void startDownLoad() {
             handler.postDelayed(runnable, 1000); //每隔1s执行
         }
     }
@@ -83,4 +84,7 @@ public class MyService extends Service {
         }
     };
 
+    public interface IMyBinder{
+        void startDownLoad();
+    }
 }

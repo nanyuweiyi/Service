@@ -1,5 +1,5 @@
 # Service
-安卓Service&amp;IntentService使用
+## 安卓Service&amp;IntentService使用
 
 1、启动Service的2种方式：
 
@@ -28,18 +28,23 @@ b、Bind启动:bindService  生命周期：onCreate()->onBind()->onUnBind()->onD
    的信息，可以通过bindService()将一个activity和service绑定。这种情况下，stopService()或 stopSelf()实际上并不能停
    止这个service，除非所有的客户都解除绑定。
    
+ 
+ ### IntentService
+ 
+ onHandleIntent() 可以执行耗时操作，并且执行完自动销毁。
+ 
 ### 如何保证Service不被杀死：
 
 1、onStartCommand方法，返回START_STICKY。
-
+```
 @Override  
 public int onStartCommand(Intent intent, int flags, int startId) {  
    flags = START_STICKY;  
    return super.onStartCommand(intent, flags, startId);  
 } 
-
+```
 2、提升service进程优先级
-
+```
 <service  
     android:name="com.dbjtech.acbxt.waiqin.UploadService"  
     android:enabled="true" >  
@@ -47,7 +52,7 @@ public int onStartCommand(Intent intent, int flags, int startId) {
         <action android:name="com.dbjtech.myservice" />  
     </intent-filter>  
 </service>  
-
+```
 3、在onDestroy方法里重启service
 
 

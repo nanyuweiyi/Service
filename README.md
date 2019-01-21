@@ -54,6 +54,7 @@ public int onStartCommand(Intent intent, int flags, int startId) {
 </service>  
 ```
 3、将Service变为前台服务
+
 4、在onDestroy方法里重启service
 
 

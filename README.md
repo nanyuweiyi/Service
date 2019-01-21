@@ -25,8 +25,8 @@ b、Bind启动:bindService  生命周期：onCreate()->onBind()->onUnBind()->onD
 　　即是说，你可以和一个已经调用了 startService()而被开启的service进行绑定。
 
 　　比如，一个后台音乐service可能因调用 startService()方法而被开启了，稍后，可能用户想要控制播放器或者得到一些当前歌曲
-   的信息，可以通过bindService()将一个activity和service绑定。这种情况下，stopService()或 stopSelf()实际上并不能停
-   止这个service，除非所有的客户都解除绑定。
+  的信息，可以通过bindService()将一个activity和service绑定。这种情况下，stopService()或 stopSelf()实际上并不能停
+  止这个service，除非所有的客户都解除绑定。
    
  
  ### IntentService
@@ -53,7 +53,8 @@ public int onStartCommand(Intent intent, int flags, int startId) {
     </intent-filter>  
 </service>  
 ```
-3、在onDestroy方法里重启service
+3、将Service变为前台服务
+4、在onDestroy方法里重启service
 
 
 
